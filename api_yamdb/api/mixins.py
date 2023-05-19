@@ -11,12 +11,12 @@ class AdminViewMixin(viewsets.GenericViewSet):
     """
 
     restricted_methods = admin_methods
-    permission_level_class = IsAdminOrSuperUser
+    current_permission_class = IsAdminOrSuperUser
 
     def get_permissions(self):
         if self.request.method in self.restricted_methods:
-            self.permission_classes = (self.permission_level_class,)
-        return super(AdminViewMixin, self).get_permissions()
+            self.permission_classes = (self.current_permission_class,)
+        return super().get_permissions()
 
 
 class ModeratorViewMixin(AdminViewMixin):
@@ -26,4 +26,4 @@ class ModeratorViewMixin(AdminViewMixin):
     """
 
     restricted_methods = moderator_methods
-    permission_level_class = IsModeratorOrAdminOrOwner
+    current_permission_class = IsModeratorOrAdminOrOwner

@@ -88,6 +88,52 @@ paths:
               schema:
                 $ref: '#/components/schemas/ValidationError'
           description: 'Отсутствует обязательное поле или оно некорректно'
+  /auth/confirmation_code/:
+    post:
+      tags:
+        - AUTH
+      operationId: Получение кода подтверждения регистрации
+      description: |
+        Получить код подтверждения повторно или при регистрации через админ зону.
+
+        Пользователь должен существовать по указанным `email` и `username`.
+
+        Права доступа: **Доступно без токена.**
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - username
+              properties:
+                email:
+                  type: string
+                username:
+                  type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  email:
+                    type: string
+                  username:
+                    type: string
+                required:
+                - email
+                - username
+          description: 'Удачное выполнение запроса'
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+          description: 'Отсутствует обязательное поле или оно некорректно'
+        404:
+          description: Пользователь не найден
   /auth/token/:
     post:
       tags:
