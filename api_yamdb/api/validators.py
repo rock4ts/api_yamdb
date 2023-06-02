@@ -1,13 +1,5 @@
-from django.core.validators import RegexValidator
 from django.utils import timezone
 from rest_framework.exceptions import ValidationError
-
-
-class RegexUsernameValidator(RegexValidator):
-    regex = r'^[\w.@+-]+$'
-    message = (
-        'Имя пользователя должно состоять из букв, цифр и символов @/./+/-/_'
-    )
 
 
 def allowed_username_validator(username):
